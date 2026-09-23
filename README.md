@@ -20,14 +20,14 @@
 - Spring Initializr: Create a Maven Project...
 - S/W 모듈 선택하여 폴더 생성 후 지정 
 <div align ="center">
-    <img width="50%" src="projectimg/2주차_1.png">
+    <img width="50%" src="./demo/projectimg/2주차_1.png">
 </div>
 <br>
 
 ### 자바 클래스 파일
 - DemoApplication을 열어 어노테이션을 통해 자동 설정
 <div align ="center">
-    <img width="50%" src="projectimg/2주차_2.png">
+    <img width="50%" src="./demo/projectimg/2주차_2.png">
 </div>
 <br>
 - localhost:8080을 실행하여 웹사이트 open
@@ -40,7 +40,7 @@
 
 ### DemoController 내용 작성
 <div align ="center">
-    <img width="50%" src="projectimg/2주차_3.png">
+    <img width="50%" src="./demo/projectimg/2주차_3.png">
 </div>
 <br>
 
@@ -53,6 +53,6 @@
 - html xmlns:th="http://www.thymeleaf.org"
 - URL 출력 방식? @{...} 컨텍스트 경로를 자동으로 반영함
 <div align ="center">
-    <img width="50%" src="projectimg/3주차_1.png">
+    <img width="50%" src="./demo/projectimg/3주차_1.png">
 </div>
 <br>
