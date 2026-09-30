@@ -2,6 +2,7 @@
 <br><br>
 
 ## 자바웹프로그래밍(2) 수업 실습 정리 💘
+> 학과 : 미디어소프트웨어학과
 > 학번 : 20241400
 > 이름 : 이서현
 
@@ -14,7 +15,7 @@
 ---
 # 💗 Weekly Study Log
 
-## 2주차 수업 내용
+## 2주차 수업 내용 (1주차는 OT 진행)
 ### 개발 환경 및 스트링 부트 준비
 - Extension Pack for Java, Spring Boot Extension Pack 설치
 - Spring Initializr: Create a Maven Project...
@@ -54,5 +55,37 @@
 - URL 출력 방식? @{...} 컨텍스트 경로를 자동으로 반영함
 <div align ="center">
     <img width="50%" src="./demo/projectimg/3주차_1.png">
+</div>
+<br>
+
+## 4주차 수업
+### 데이터베이스 연동 (온라인 수업)
+- pom.xml에서 주석 처리 했던 부분을 다시 해제한다.
+<div align ="center">
+    <img width="50%" src="./demo/projectimg/4주차_1.png">
+</div>
+<br>
+- 데이터베이스 연동으로 MYSQL을 설치 및 연결한다
+- 저는 맥 사용자라 Docker 설치 후 터미널로 Mysql 설치 및 연동 진행하였습니다.
+- create database spring; / flush privileges; 설치하여 데이터 베이스 생성
+- 확장 : mysql 검색 후에 설치. 데이터 베이스 이름 : spring으로 설정함
+<div align ="center">
+    <img width="50%" src="./demo/projectimg/4주차_2.png">
+</div>
+<div align ="center">
+    <img width="50%" src="./demo/projectimg/4주차_3.png">
+</div>
+<br>
+
+### 구조 변경
+- 단일 폴더에서 패키지 세분화로 분리하기 위해 내부 구조 변경
+- M : model or domain 폴더
+- V : view, 기존 templates 폴더
+- C : controller 폴더
+- Service : service 폴더 
+- Repository : repository 폴더
+- 계층 별로 controller / model > service, repository, domain 폴더 총 5개 생성
+<div align ="center">
+    <img width="50%" src="./demo/projectimg/4주차_4.png">
 </div>
 <br>
