@@ -89,3 +89,50 @@
     <img width="50%" src="./demo/projectimg/4주차_4.png">
 </div>
 <br>
+
+## 5주차 수업
+### 의존성 모듈 추가
+- pom.xml 파일 열어서 의존성 추가한다.
+- spring-boot-starter-security : 로그인과 보안을 담당하는 기능 삽입
+- admin : 관리자만 접근 가능 / mypage : 로그인한 사용자만 접근 가능
+- thymeleaf-extras-springsecurity6 : Thymeleaf HTML에서 로그인/권한 정보를 활용하여 접근
+<div align ="center">
+    <img width="50%" src="./demo/projectimg/5주차_1.png">
+</div>
+<br>
+
+### 보안 설정 - SecurityConfig
+<div align ="center">
+    <img width="50%" src="./demo/projectimg/5주차_2.png">
+</div>
+<br>
+- config > SecurityConfig 생성
+- @Bean : 가입·로그인에서 암호 알고리즘 : 같은 BCrypt 사용
+- permitAll() :누구나 접근 가능하게 (메인, 상세, 로그인, 가입)
+- defaultSuccessUrl : 성공 시 메인 index 화면
+- failureUrl : 실패 시 에러 파라미터
+
+### 요청 페이지 - 컨트롤러
+- controller > MemberController 생성
+- 메인 우측 상단에 로그인 버튼 확인
+<div align ="center">
+    <img width="50%" src="./demo/projectimg/5주차_3.png">
+</div>
+<br>
+
+### 회원 리포지토리 생성
+- repository > MemberRepository 생성
+- findByUsername : 
+
+### 로그인 연결 - UserDetailsService
+- 시큐리티에 회원 조회 방법 제공
+- 회원가입 후 로그인하면 오른쪽 상단에 "로그아웃" 칸으로 바뀜
+<div align ="center">
+    <img width="50%" src="./demo/projectimg/5주차_5.png">
+</div>
+<br>
+- 로그아웃시, 로그아웃 되었다는 화면 나타남
+<div align ="center">
+    <img width="50%" src="./demo/projectimg/5주차_6.png">
+</div>
+<br>

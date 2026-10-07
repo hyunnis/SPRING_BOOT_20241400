@@ -13,5 +13,12 @@ public class TestDB {
     private Long id;
 
     @Column (nullable = true)
-    private  String name;
+    private String name;
+
+    @Column (nullable = true)
+    private Integer age;
+
+    @Column (nullable = true)
+    private String gender;
+
 }
