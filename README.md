@@ -136,3 +136,13 @@
     <img width="50%" src="./demo/projectimg/5주차_6.png">
 </div>
 <br>
+
+
+## 7주차 수업
+### 내 정보 API
+<div align ="center">
+    <img width="50%" src="./demo/projectimg/7주차_2.png">
+</div>
+<br>
+- 로그인하고 /api/me 들어가면 비밀번호(해시)가 그대로 보임
+- 해결 방법 : 응답용 객체를 따로 해서 응답 DTO를 만드는 것!(비밀번호 제외)
