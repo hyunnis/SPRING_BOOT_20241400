@@ -35,7 +35,11 @@ public class SecurityConfig {
                 .requestMatchers("/admin/**","/api/admin/**")
                 .hasRole("ADMIN")
                 .requestMatchers("/api/hello").permitAll()
+                // [9주차] 게시판 목록·상세 : 누구나 접근 가능
+                .requestMatchers("/board", "/board/{id:\\d+}").permitAll()
                 .anyRequest().authenticated()) // 나머지는 로그인 필요(/mypage 등)
+                
+
 
             // 2. 폼 로그인 설정(인증)
             .formLogin(form -> form

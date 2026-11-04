@@ -1,0 +1,26 @@
+<!--
+  [9주차 제공] 메인 화면(index.html)에 "게시판" 메뉴 추가하기
+  6주차 제공 index.html 을 그대로 쓰는 학생은 src/.../templates/index.html 로 덮어써도 된다.
+  직접 꾸민 학생은 아래 ①·② 만 반영하세요.
+-->
+
+<!-- ① <head> 안 [6주차] 메뉴 스타일의 @media (min-width: 992px) and (max-width: 1199px) { ... } 블록을 아래로 교체 -->
+            /* [9주차] 게시판 메뉴 추가 → 화면 폭별로 간격 조정 */
+            @media (min-width: 1200px) and (max-width: 1399px) {
+                .navbar-expand-lg .navbar-nav .nav-link { margin-left: 8px; margin-right: 8px; font-size: 15px; }
+                .navbar i.navbar-icon { display: none; }
+            }
+            @media (min-width: 992px) and (max-width: 1199px) {
+                .navbar-expand-lg .navbar-nav .nav-link { margin-left: 4px; margin-right: 4px; font-size: 13.5px; }
+                .navbar i.navbar-icon { display: none; }
+                .navbar .role-badge { display: none; }
+                .navbar .custom-btn { padding: 8px 14px; }
+                .navbar-brand { font-size: 24px; }
+            }
+
+
+<!-- ② 메뉴의 "연락처" <li> 바로 아래 (회원목록 <li> 위)에 추가 -->
+                        <!-- [9주차] 게시판 : 목록·상세는 누구나, 글쓰기는 로그인 -->
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/board}">게시판</a>
+                        </li>
