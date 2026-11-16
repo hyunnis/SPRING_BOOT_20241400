@@ -4,6 +4,12 @@ import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.Data;
 
+// [10주차]
+import java.util.ArrayList;
+import java.util.List;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 @Entity 
 @Table(name = "posts")
 @Data // set/get/tostring 등 필수 메서드 자동 생성
@@ -29,4 +35,9 @@ public class Post {
     
     @Column(nullable = false) // 조회수 (연습문제에서 사용)
     private int viewCount = 0;
+
+    // 글 1개 -> 댓글 여러 개 (1 : N). 글을 지우면 댓글도 함께 지운다
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE) // 외래 키는 Comment.post 가 관리
+    @ToString.Exclude @EqualsAndHashCode.Exclude // 글 → 댓글 → 글… 무한 반복 방지
+    private List<Comment> comments = new ArrayList<>();
 }

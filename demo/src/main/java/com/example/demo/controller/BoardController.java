@@ -10,9 +10,10 @@ import com.example.demo.model.domain.Post;
 import com.example.demo.model.dto.PostForm;
 import com.example.demo.model.service.PostService;
 
+//[10주차]
+import com.example.demo.model.service.CommentService;
 
-
-
+import org.springframework.data.domain.Page;
 
 
 @Controller // 게시판 화면 컨트롤러
@@ -20,13 +21,17 @@ import com.example.demo.model.service.PostService;
 public class BoardController {
     @Autowired
     PostService postService;
+    @Autowired // 1.필드 추가(postService 아래)
+    CommentService commentService;
 
     @GetMapping // 목록 : GET /board(누구나)
-    public String list(Model model) {
-        List<Post> posts = postService.findAll();
-        model.addAttribute("posts", posts);
+    public String list(@RequestParam(defaultValue = "0") int page, Model model) {
+        Page<Post> posts = postService.findPage(page); // 페이지 단위로 10개씩
+        model.addAttribute("posts", posts.getContent()); // 이번 페이지의 글 목록
+        model.addAttribute("page", posts); // 페이지 정보 → 화면에 번호가 생긴다
         return "board/list";
     }
+    
     @GetMapping("/write") // 글쓰기 화면 : GET /board/write (로그인 필요)
     public String writeForm() {
         return "board/form";
@@ -45,6 +50,7 @@ public class BoardController {
     public String detail(@PathVariable Long id, Model model) {
         Post post = postService.findById(id);
         model.addAttribute("post", post);
+        model.addAttribute("comments", commentService.findByPost(post)); // 2. 댓글 목록 → 화면에 댓글 영역
         return "board/detail";
     }
     
@@ -74,5 +80,14 @@ public class BoardController {
     public String delete(@PathVariable Long id) {
         postService.delete(id);
         return "redirect:/board?deleted"; // 목록 + "삭제되었습니다"
+    }
+    @GetMapping // 목록 : GET /board?page=0&keyword=스프링 (누구나)
+    public String list(@RequestParam(defaultValue = "0") int page,
+                        @RequestParam(required = false) String keyword, Model model) {
+        Page<Post> posts = postService.findPage(keyword, page);
+        model.addAttribute("posts", posts.getContent());
+        model.addAttribute("page", posts);
+        model.addAttribute("keyword", keyword); // 검색창에 검색어 유지, 페이지 링크에도 붙인다
+        return "board/list";
     }
 }

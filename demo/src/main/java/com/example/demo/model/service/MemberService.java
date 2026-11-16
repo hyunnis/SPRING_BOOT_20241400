@@ -18,6 +18,10 @@ import com.example.demo.model.domain.Member;
 import com.example.demo.model.dto.MemberForm;
 import com.example.demo.model.repository.MemberRepository;
 
+//[10주차]
+import com.example.demo.model.repository.PostRepository;
+import com.example.demo.model.repository.CommentRepository;
+
 @Service // 서비스 등록
 public class MemberService implements UserDetailsService {
 
@@ -27,6 +31,11 @@ public class MemberService implements UserDetailsService {
     @Autowired
     // SecurityConfig 에 등록한 BCryptPasswordEncoder 주입
     private PasswordEncoder passwordEncoder;
+
+    @Autowired // 1. 필드 추가
+    private PostRepository postRepository;
+    @Autowired
+    private CommentRepository commentRepository;
 
     // 관리자가 부여할 수 있는 권한
     private static final List<String> ROLES = List.of("USER", "ADMIN");
@@ -113,8 +122,11 @@ public class MemberService implements UserDetailsService {
                 .orElseThrow(() ->
                         new IllegalArgumentException(
                                 "회원이 존재하지 않습니다."));
+        if (postRepository.existsByAuthor(member) || commentRepository.existsByAuthor(member)) {
+            throw new IllegalArgumentException("작성한 글이나 댓글이 있는 회원은 삭제할 수 없습니다.");
+        }
 
-        memberRepository.delete(member);
+        memberRepository.delete(member); // DELETE
     }
 
     public Optional<Member> findById(Long id) {

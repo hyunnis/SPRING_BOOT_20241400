@@ -20,7 +20,9 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-
+// [10주차]
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 @Service // 게시판 서비스
 public class PostService {
@@ -84,6 +86,14 @@ public class PostService {
         return postRepository.save(post); // id 가 있으니 UPDATE
     }
 
+    public static final int PAGE_SIZE = 10; // 한 페이지에 보여 줄 글 수
+
+    // [10주차] 단계 1 : 페이지 목록 (page 는 0 부터)
+    public Page<Post> findPage(int page) { // 반환 타입이 Page
+        PageRequest pageable = PageRequest.of(Math.max(page, 0), PAGE_SIZE, Sort.by(Sort.Direction.DESC, "id"));
+        return postRepository.findAll(pageable); // SELECT ... ORDER BY id DESC LIMIT 10 OFFSET page*10
+    }
+
     public void delete(Long id) { // 글 삭제
         Post post = findById(id);
         if (!isAdmin()) checkWriter(post); // 추가 : 관리자는 누구 글이든 삭제 가능
@@ -101,5 +111,13 @@ public class PostService {
     private boolean isAdmin() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+    }
+    // [10주차] 단계 2: 페이지 목록 + 검색 (검색어가 없으면 전체)
+    public Page<Post> findPage(String keyword, int page) {
+        PageRequest pageable = PageRequest.of(Math.max(page, 0), PAGE_SIZE, Sort.by(Sort.Direction.DESC, "id"));
+        if (keyword == null || keyword.isBlank()) { // 앞이 ture면 뒤를 실행하지 않음
+            return postRepository.findAll(pageable);
+        }
+        return postRepository.search(keyword.trim(), pageable); // 검색 결과도 10개씩
     }
 }
